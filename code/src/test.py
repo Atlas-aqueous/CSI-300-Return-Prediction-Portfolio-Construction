@@ -7,7 +7,6 @@ import pandas as pd
 
 from featurework import (
     build_portfolio,
-    choose_prediction_history,
     data_dir,
     ensure_directories,
     model_dir,
@@ -61,9 +60,14 @@ def _predict_with_model(train_df: pd.DataFrame, history_df: pd.DataFrame) -> tup
 
 def main() -> None:
     ensure_directories()
+
+    # Official submission mode:
+    # Only use historical data from train.csv. Do not read or use test.csv,
+    # so the generated result.csv is determined by the latest date in train.csv.
     train_df = read_market_data(data_dir() / "train.csv")
-    test_df = read_market_data(data_dir() / "test.csv")
-    history_df, history_mode = choose_prediction_history(train_df, test_df)
+    history_df = train_df.copy()
+    history_mode = "train_only_official"
+
     portfolio, details = _predict_with_model(train_df, history_df)
     mode = f"model_prediction_{history_mode}"
 
