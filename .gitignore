@@ -1,0 +1,24 @@
+# ---- 运行产物（由 init.sh / train.sh / test.sh 生成）----
+temp/
+!temp/.gitkeep
+
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# ---- 编辑器 / 系统 ----
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# ---- 日志 ----
+*.log
+
+# ---- 运行时输出 ----
+output/
