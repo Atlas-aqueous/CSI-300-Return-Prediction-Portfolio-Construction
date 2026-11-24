@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-from pathlib import Path
-
 import joblib
 import pandas as pd
 
@@ -12,6 +10,7 @@ from featurework import (
     model_dir,
     output_dir,
     prepare_inference_frame,
+    project_root,
     read_market_data,
     save_json,
     save_result,
@@ -76,8 +75,8 @@ def main() -> None:
     save_json(
         {
             "mode": mode,
-            "result_path": str(RESULT_PATH),
-            "detail_path": str(DETAIL_PATH),
+            "result_path": RESULT_PATH.relative_to(project_root()).as_posix(),
+            "detail_path": DETAIL_PATH.relative_to(project_root()).as_posix(),
             "selected_count": int(len(portfolio)),
             "weight_sum": float(portfolio["weight"].sum()) if not portfolio.empty else 0.0,
         },
